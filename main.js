@@ -6,17 +6,14 @@ const cardsContainer = document.querySelector("#cards-container"),
     hardLevelButton = document.querySelector("#hard"),
     veryHardLevelButton = document.querySelector("#very-hard"),
     expertLevelButton = document.querySelector("#expert"),
-
     gameLevel = document.querySelector("#game-level"),
     game = document.querySelector("#game"),
     itemsContainer = document.querySelector("#items-container"),
     level = document.querySelector("#level"),
-
     hearts = document.querySelector("#hearts"),
     scores = document.querySelector("#scores"),
     hints = document.querySelector("#hints"),
     timer1 = document.querySelector("#timer");
-
 
 const catFaceEmojis = ['😺', '😺', '😸', '😸', '😹', '😹', '😻', '😻', '😾', '😾', '😿', '😿', '🙀', '🙀', '😽', '😽', '😼', '😼'];
 arr = ['👶', '👶', '👦', '👦', '👧', '👧'];
@@ -24,11 +21,6 @@ let startingMinutes = 1,
     playerScores = 0,
     numberOfHearts = 3,
     numberOfHints = 2;
-//very easy 8
-//easy 16
-//medium 36
-//hard 64
-//very hard 100
 
 const veryEasy = ['😀', '😀', '😊', '😊', '😍', '😍', '🥰', '🥰'],
 
@@ -96,8 +88,6 @@ expertLevelButton.addEventListener("click", e => {
     Play(expert);
 });
 
-
-
 function Play(arr) {
     gameLevel.classList.add("hidden");
     game.classList.remove("hidden");
@@ -155,12 +145,10 @@ function Play(arr) {
                         document.querySelectorAll(".opened-box")[0].classList.add("box-match");
                         document.querySelectorAll(".opened-box")[1].classList.add("box-match");
 
-
                         document.querySelectorAll(".opened-box")[1].classList.remove("opened-box");
                         document.querySelectorAll(".opened-box")[0].classList.remove("opened-box");
                         playerScores++;
                         scores.textContent = `Scores: ${playerScores}`;
-
 
                         for (let i = 0; i < hearts.textContent.length; i++) {
                             if (hearts.textContent[i] == "💙") numberOfHearts++;
@@ -170,7 +158,6 @@ function Play(arr) {
                             if (hints.textContent[i] == "💎") numberOfHints++;
                         }
 
-
                         if (playerScores % 3 == 0) {
                             alert(numberOfHearts)
                             if (numberOfHearts < 3)
@@ -178,8 +165,6 @@ function Play(arr) {
                         } else if (numberOfHints < 3) {
                             hints.textContent += " 💎";
                         }
-
-
 
                         if (document.querySelectorAll(".box-match").length == arr.length) {
                             alert("You Won!, Click Okay to Play again.");
@@ -203,8 +188,6 @@ function Play(arr) {
         if (numberOfHints > 0) {
             alert("df")
             setInterval(function () {
-                // document.querySelectorAll("#items-container div").style.opacity = "0.1";
-                // document.querySelectorAll("#items-container div::after").style.backgroundColor = "red";
                 document.querySelectorAll("#items-container div").classList.add("opened-box");
             }, 500);
             document.querySelectorAll("#items-container div").classList.remove("opened-box");
@@ -227,7 +210,6 @@ function Play(arr) {
 
         timer1.textContent = `Timer: ${minutes}:${seconds}`;
         if (seconds < 10) {
-            //the result is weird
             timer1.style.color = "red";
         }
         time--;
@@ -238,17 +220,3 @@ function Play(arr) {
     }
 }
 
-
-
-
-//unused emojis in expert level
-// '🎊', '🎊', '🪅', '🪅', '🪄', '🪄', '🎀', '🎀', '🎏', '🎏', '🎈', '🎈', '🎁', '🎁', '🛒', '🛒', '🛍️', '🛍️',
-// '🪟', '🪟', '🪞', '🪞', '🖼️', '🖼️', '🪆', '🪆', '🧸', '🧸', '🛏️', '🛏️', '🛌🏻', '🛌🏻', '🪠', '🪠', '🧹', '🧹',
-// '🌡️', '🌡️', '🪑', '🪑', '🚪', '🚪', '🧪', '🧪', '🪦', '🪦', '🩻', '🩻', '🚿', '🚿', '🚰', '🚰', '♥️', '♥️',
-// '♣️', '♣️', '♠️', '♠️', '🔈', '🔈', '🔇', '🔇', '🔉', '🔉', '🔊', '🔊', '🔔', '🔔', '🔕', '🔕', '📣', '📣',
-// '📢', '📢', '💬', '💬', '💭', '💭', '🗯️', '🗯️', '🍊', '🍊', '🍐', '🍐', '🍎', '🍎', '🍏', '🍏', '🥦', '🥦', '🥬', '🥬', '🥒',
-// '🥒',  '🥑', '🥑', '🫛', '🫛',
-// '🍳', '🍳', '🍧', '🍧', '🍡', '🍡', '🍢', '🍢', '🥠', '🥠', '🍥', '🍥', '🍚', '🍚', '🍙', '🍙', '🍤', '🍤', '🦪', '🦪', '🥟', '🥟', '🍱',
-// '🍱', '🍣', '🍣', '🍛', '🍛', '🧋', '🧋', '🥤', '🥤', '🧃', '🧃', '☕', '☕', '🍵', '🍵', '🪀', '🪀', '🥄', '🥄', '🍴', '🍴', '🍽️', '🍽️', '🥣',
-// '🥣', '🥡', '🥡', '🧊', '🧊', '🍾', '🍾', '🧉', '🧉', '🎻', '🎻', '🪕', '🪕', '🎸', '🎸', '🪗', '🪗', '🤽🏻‍♂️',
-// '🤽🏻‍♂️'
