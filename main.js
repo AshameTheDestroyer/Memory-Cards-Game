@@ -1,5 +1,5 @@
 const cardsContainer = document.querySelector("#cards-container"),
-    resetButton = document.querySelector("#reset"),
+    resetButton = document.querySelector("#main-menu-button"),
     easyLevelButton = document.querySelector("#easy"),
     veryEasyLevelButton = document.querySelector("#very-easy"),
     mediumLevelButton = document.querySelector("#medium"),
@@ -13,10 +13,12 @@ const cardsContainer = document.querySelector("#cards-container"),
     hearts = document.querySelector("#hearts"),
     scores = document.querySelector("#scores"),
     hints = document.querySelector("#hints"),
-    timer1 = document.querySelector("#timer");
+    timer1 = document.querySelector("#timer"),
+    questionWindow = document.querySelector("#question-window"),
+    cancelButton = document.querySelector("#cancel"),
+    exitButton = document.querySelector("#exit"),
+    h2 = document.querySelector("h2");
 
-const catFaceEmojis = ['😺', '😺', '😸', '😸', '😹', '😹', '😻', '😻', '😾', '😾', '😿', '😿', '🙀', '🙀', '😽', '😽', '😼', '😼'];
-arr = ['👶', '👶', '👦', '👦', '👧', '👧'];
 let startingMinutes = 1,
     playerScores = 0,
     numberOfHearts = 3,
@@ -67,24 +69,19 @@ easyLevelButton.addEventListener("click", e => {
     Play(easy);
 });
 
-
 mediumLevelButton.addEventListener("click", e => {
     Play(medium);
 });
-
 
 hardLevelButton.addEventListener("click", e => {
     Play(hard);
 });
 
-
 veryHardLevelButton.addEventListener("click", e => {
     Play(veryHard);
 });
 
-
 expertLevelButton.addEventListener("click", e => {
-
     Play(expert);
 });
 
@@ -104,44 +101,51 @@ function Play(arr) {
                 itemsContainer.style.setProperty('--item-size', '2em');
                 itemsContainer.style.setProperty('--items-columns', '4');
                 level.textContent = "Very Easy 🐣";
+                h2.style.color = "#0aaaaa";
+
             }; break;
             case 16: {
                 itemsContainer.style.setProperty('--item-size', '2em');
                 itemsContainer.style.setProperty('--items-columns', '4');
                 level.textContent = "Easy 🐤";
+                h2.style.color = "#c7ff43";
             }; break;
             case 36: {
                 itemsContainer.style.setProperty('--item-size', '1em');
                 itemsContainer.style.setProperty('--items-columns', '6');
                 level.textContent = "Medium 👶🏻";
+                h2.style.color = "#05ee0d";
                 startingMinutes = 2;
             }; break;
             case 64: {
                 itemsContainer.style.setProperty('--item-size', '1em');
                 itemsContainer.style.setProperty('--items-columns', '8');
                 level.textContent = "Hard 🏃🏻‍♀️";
+                h2.style.color = "#00c855";
                 startingMinutes = 10;
             }; break;
             case 100: {
                 itemsContainer.style.setProperty('--item-size', '1em');
                 itemsContainer.style.setProperty('--items-columns', '10');
                 level.textContent = "Very Hard ⚔️";
+                h2.style.color = "#0028ff";
                 startingMinutes = 15;
             }; break;
             default: {
                 itemsContainer.style.setProperty('--item-size', '1em');
                 itemsContainer.style.setProperty('--items-columns', '20');
                 level.textContent = "Expert 😎";
+                h2.style.color = "#ff0040";
                 startingMinutes = 30;
             }; break;
         }
 
         box.onclick = function () {
+            //i want when clicking on an open card again i want to close it
             this.classList.add("opened-box");
             setTimeout(function () {
                 if (document.querySelectorAll(".opened-box").length > 1) {
                     if (document.querySelectorAll(".opened-box")[0].innerHTML == document.querySelectorAll(".opened-box")[1].innerHTML) {
-                        //the problem is document.querySelectorAll("opened-box")[index].innerHTML is Undefined
                         document.querySelectorAll(".opened-box")[0].classList.add("box-match");
                         document.querySelectorAll(".opened-box")[1].classList.add("box-match");
 
@@ -159,7 +163,7 @@ function Play(arr) {
                         }
 
                         if (playerScores % 3 == 0) {
-                            alert(numberOfHearts)
+                            // alert(numberOfHearts)
                             if (numberOfHearts < 3)
                                 hearts.textContent += " 💙";
                         } else if (numberOfHints < 3) {
@@ -176,27 +180,52 @@ function Play(arr) {
                         //     document.querySelectorAll(".open-box")[0].classList.add("opened-box");
                         //     document.querySelectorAll(".open-box")[1].classList.add("opened-box");
                         // }, 250)
-                        document.querySelectorAll(".opened-box")[0].classList.remove("opened-box");
                         document.querySelectorAll(".opened-box")[1].classList.remove("opened-box");
+                        document.querySelectorAll(".opened-box")[0].classList.remove("opened-box");
                     }
                 }
-            }, 500);
+            }, 1500);
+        }
+    }
+
+    hints.addEventListener("click", e => {
+        let waitTime = 0;
+        switch (level.textContent) {
+            case "Very Easy 🐣": waitTime = 200; break;
+            case "Easy 🐤": waitTime = 1000; break;
+            case "Medium 👶🏻": waitTime = 2000; break;
+            case "Hard 🏃🏻‍♀️": waitTime = 3000; break;
+            case "Very Hard ⚔️": waitTime = 5000; break;
+            case "Expert 😎": waitTime = 10000; break;
         }
 
-    }
-    hints.addEventListener("click", e => {
         if (numberOfHints > 0) {
-            alert("df")
-            setInterval(function () {
-                document.querySelectorAll("#items-container div").classList.add("opened-box");
-            }, 500);
-            document.querySelectorAll("#items-container div").classList.remove("opened-box");
+            alert(numberOfHints)
+            for (let i = 0; i < arr.length; i++) {
+                setTimeout(function () {
+                    document.querySelectorAll(".item")[i].classList.add("opened-box");
+                }, 500);
+            }
 
+            for (let j = 0; j < arr.length; j++) {
+                setTimeout(function () {
+                    document.querySelectorAll(".item")[j].classList.remove("opened-box");
+                }, waitTime);
+            }
+            numberOfHints--;
+            hints.textContent = hints.textContent.slice(0, -2);
+            alert(numberOfHints)
         }
     });
 
     resetButton.addEventListener("click", _e => {
-        window.location.reload();
+        questionWindow.classList.remove("hidden");
+        cancelButton.addEventListener("click", e => {
+            questionWindow.classList.add("hidden");
+        });
+        exitButton.addEventListener("click", e => {
+            window.location.reload();
+        });
     });
 
     let time = startingMinutes * 60;

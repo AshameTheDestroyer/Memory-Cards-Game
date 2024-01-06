@@ -11,7 +11,7 @@ body {
     place-items: center;
 
     background-color: rgb(163, 13, 43);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 #game,
@@ -24,7 +24,7 @@ body {
     place-items: center;
     gap: 5px;
     padding: 2rem;
-    background-color: rgb(255, 47, 89);
+    background-color: rgb(255, 123, 149);
     border-radius: 1rem;
 }
 
@@ -40,23 +40,12 @@ body {
     place-items: center;
     font-size: var(--item-size) !important;
     padding: 1rem 2rem;
-    background-color: rgb(255, 47, 89);
-}
-
-#game-level {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    z-index: 1;
-    /* background-color: green; */
 }
 
 #game-level button {
     width: 400px;
     height: 60px;
-
+    position: relative;
     background-image: linear-gradient(30deg, #BBB, #FFF);
     border-radius: 1rem;
     font-size: 1.2rem;
@@ -70,7 +59,6 @@ body {
 
 h2 {
     font-size: 2rem;
-    color: #FFF;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: -0.5rem;
@@ -82,7 +70,7 @@ h2 {
     place-items: center;
 }
 
-#reset {
+#main-menu-button {
     width: 80%;
     padding: 1rem;
     background-color: #FFF;
@@ -132,6 +120,7 @@ h2 {
     background-color: crimson;
     transition: 2.5s;
     backface-visibility: hidden;
+    z-index: 2;
 }
 
 .opened-box:after,
@@ -150,4 +139,53 @@ h2 {
 
     /* padding: 2rem; */
     /* background-color: blue; */
+}
+
+#question-window {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    gap: 1rem;
+
+    background-color: rgb(52, 98, 119);
+    color: #FFF;
+    font-size: 1.2rem;
+    z-index: 1;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+#question-window div {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    gap: 2rem;
+    place-self: end;
+}
+
+#question-window button {
+    background-color: aquamarine;
+    color: crimson;
+    font-weight: bold;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+#question-window button:hover,
+#main-menu-button:hover {
+    background-color: orangered;
+    color: #FFF;
+}
+
+@media only screen and (max-width: 600px) {
+    #grid {
+        flex-direction: column;
+    }
 }
